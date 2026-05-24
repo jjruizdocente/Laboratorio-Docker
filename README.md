@@ -86,39 +86,14 @@ No hace falta reiniciar el contenedor, de manera inmediata ya se ven los cambios
 <hr>
 
 ### 6. Creando redes privadas
-Crea una red llamada:
+<img width="1181" height="313" alt="E6_C1" src="https://github.com/user-attachments/assets/5a69593d-3a28-4dde-8468-fa805444aeeb" />
 
-my-net
  
-Arranca dos contenedores ubuntu en esa red.
-
-Instala ping si es necesario.
-
-Desde un contenedor intenta hacer:
-
-ping otro_contenedor
- 
-Pregunta
-
-¿Los contenedores pueden comunicarse entre sí?
+#### Pregunta. ¿Los contenedores pueden comunicarse entre sí? Sí
+<img width="1117" height="212" alt="E6_C2" src="https://github.com/user-attachments/assets/90ec58c3-981f-42d3-9951-9985b5975568" />
 
 
 <hr>
 
 ### 9. Docker Compose --- Compartiendo volúmenes
-Crea un fichero:
-
-docker-compose.yml
- 
-Con dos servicios.
-
-writer
-Debe:
-
-montar un volumen en /app/logs
-escribir un timestamp cada 30 segundos
-reader
-Debe:
-
-montar el volumen en modo solo lectura
-mostrar el contenido en consola
+<img width="1200" height="665" alt="E9_C1" src="https://github.com/user-attachments/assets/8d60f841-1b6e-4d1c-a4de-c8dc0b3f9bde" />
