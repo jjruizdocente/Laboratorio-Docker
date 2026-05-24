@@ -7,6 +7,7 @@ Laboratorio Docker del curso de DEVOPS
 <hr>
 
 ### 1. Creando imágenes
+### Paso 1
 Abro Docker Desktop en mi equipo.
 
 Desde la terminal ejecuto: `docker run -it ubuntu`
@@ -18,44 +19,61 @@ Cuando termina la ejecución me encuentro dentro del contenedor. Allí:<br><br/>
 <br><br/>
 <img width="1209" height="322" alt="E1_C1" src="https://github.com/user-attachments/assets/e02103c0-fd06-4750-a45d-e971ecdf7859" />
 
+#### Pregunta. ¿Con qué comando podrías guardar los cambios del contenedor como una nueva imagen?
+`docker commit <ID_CONTENEDOR> <NOMBRE_IMAGEN>`
 
-## Paso 1
-- Ejecuta un contenedor basado en la imagen: ubuntu
- 
-Accede a la terminal del contenedor.
+<br><br/>
 
-Instala curl:
+### Paso 2 Dockerfile
+Creo el siguiente Dockerfile:
+<br><br/>
+<img width="552" height="203" alt="E1_C2" src="https://github.com/user-attachments/assets/15259f05-6276-4f1e-85c4-eff200ceff45" />
 
-apt-get update
-apt-get install curl
- 
-Comprueba que funciona:
+Y ejecuto los comandos:
 
-curl --version
- 
-Pregunta
-¿Con qué comando podrías guardar los cambios del contenedor como una nueva imagen?
+`docker build -t ubuntu_curl .`<br><br/>
+`docker build -t ubuntu_curl -f Dockerfile_ubuntu_curl .`<br><br/>
+`docker run ubuntu_curl curl --version`
 
+<br><br/>
+#### Pregunta. ¿Qué comando permite ver las capas de una imagen Docker?
+`docker history <nombre_imagen>`
 
 <hr>
 
 ### 3. Volúmenes persistentes
-Ejecuta un contenedor de:
+Creo primero el contenedor:<br><br/>
+`docker run -d --name postgres-lab -e POSTGRES_PASSWORD=1234 -v mi-volumen-datos:/var/lib/postgresql/data postgres:17`
 
-postgres:17
+<br><br/>
+Aunque el contenedor se detenga, al utilizar volumenes, los datos persisten.
+<br><br/>
  
-Usa un volumen Docker montado en:
+#### Comprobación
+`docker logs postgres-lab`
+<img width="1216" height="360" alt="E3_C1" src="https://github.com/user-attachments/assets/e0dab2cd-ffdd-4966-a521-5113b12a970b" />
+<br><br/>
+<br><br/>
+<img width="1208" height="585" alt="E3_C2" src="https://github.com/user-attachments/assets/10911ee8-af9f-42a7-bb27-b977181c1b8e" />
+<br><br/>
+#### Para el contenedor
+`docker stop postgres-lab`
+
+#### Elimina el contenedor
+`docker rm postgres-lab`
+
+#### Crea un nuevo contenedor usando el mismo volumen
+`docker run -d --name postgres-lab-2 -e POSTGRES_PASSWORD=1234 -v mi-volumen-datos:/var/lib/postgresql/data postgres:17`
+
+`docker exec -it postgres-lab-2 bash`
+`psql -U postgres`
+
+#### Comprueba que los datos siguen existiendo.
+`docker volume ls`
 
 /var/lib/postgresql/data
  
-Si ejecutas una opción de postgres a partir de la 18, usa un volumen Docker montado en:
 
-/var/lib/postgresql
- 
-Crear tabla
-Conéctate a la base de datos.
-
-Crea la tabla:
 
 CREATE TABLE items (
  id SERIAL PRIMARY KEY,
@@ -65,12 +83,8 @@ CREATE TABLE items (
 Inserta un registro:
 
 INSERT INTO items(name) VALUES ('item1');
- 
-Comprobación
-Para el contenedor
-Elimina el contenedor
-Crea un nuevo contenedor usando el mismo volumen
-Comprueba que los datos siguen existiendo.
+
+
 
 <hr>
 
