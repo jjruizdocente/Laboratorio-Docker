@@ -71,48 +71,17 @@ Aunque el contenedor se detenga, al utilizar volumenes, los datos persisten.
 #### Comprueba que los datos siguen existiendo.
 `docker volume ls`
 
-/var/lib/postgresql/data
- 
-
-
-CREATE TABLE items (
- id SERIAL PRIMARY KEY,
- name TEXT
-);
- 
-Inserta un registro:
-
-INSERT INTO items(name) VALUES ('item1');
-
-
-
 <hr>
 
 ### 4. Bind mounts
-Crea un archivo en tu máquina:
-
-index.html
- 
-Ejemplo:
-
-<h1>Hola Docker</h1>
- 
-Ejecuta un contenedor nginx:
-
-mapea el puerto 80
-monta el archivo en:
-<!-- -->
- 
-/usr/share/nginx/html/index.html
- 
-Abre el navegador.
-
-Pregunta:
-
-¿Qué ocurre si modificas el archivo index.html en tu máquina?
+`docker run -d --name nginx-test -p 80:80 -v ${PWD}\index.html:/usr/share/nginx/html/index.html nginx`
+<img width="1454" height="958" alt="E4_C1" src="https://github.com/user-attachments/assets/c06d699d-be6f-4d40-b7d0-177296f9b1fc" />
 
 
-
+#### Pregunta. ¿Qué ocurre si modificas el archivo index.html en tu máquina? 
+<br></br>
+No hace falta reiniciar el contenedor, de manera inmediata ya se ven los cambios.
+<img width="1512" height="977" alt="E4_C2" src="https://github.com/user-attachments/assets/dc390b1d-ba13-4c99-8b2d-540e3685c821" />
 
 <hr>
 
